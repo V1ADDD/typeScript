@@ -150,6 +150,21 @@ export class Main {
     const user = { name: "Alice", age: 30 } as const;
     const status = "success" as const;
     
-    
+    //access modifiers
+    class Person {
+      protected id: string; // in same class and subclasses
+      private firstName: string; // in same clas only
+      public lastName: string; // everywhere
+
+      constructor(id: string, firstName: string, lastName: string) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+      }
+
+      getFullName(): string {
+        return `${this.firstName} ${this.lastName}`;
+      }
+    }
   }
 }
