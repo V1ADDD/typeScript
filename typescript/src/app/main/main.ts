@@ -139,6 +139,17 @@ export class Main {
     }
     console.log(Directions.Up, Directions[0]) //0, 'Up'
     
-    // const enum
+    const enum Status {
+      Success = 200,
+      Error = 500
+    }
+    const myStatus = Status.Success; // const myStatus = 200;
+
+    //as const
+    const colors = ["red", "green", "blue"] as const;
+    const user = { name: "Alice", age: 30 } as const;
+    const status = "success" as const;
+    
+    
   }
 }
