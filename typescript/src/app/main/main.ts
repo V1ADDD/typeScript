@@ -48,7 +48,39 @@ export class Main {
     }
     processData("Hello World"); //string
 
-    
+    //Utility types
+    type User = {
+      id: string;
+      name: string;
+      age?: number;
+    }
+    type PartialUser = Partial<User>; 
+    type RequiredUser = Required<User>;
+    type OmitUser = Omit<User, "id" | "age">;
+    type PickUser = Pick<User, "id" | "name">;
+    type ReadOnlyUser = Readonly<User>;
 
+    type Role = 
+      { role: "admin"; id: string; } 
+    | { role: "user" }
+    | { role: "guest" };
+    type NonAdminRole = Exclude<Role, { role: "admin" }>; 
+    type AdminRole = Extract<Role, { role: "admin"}>;
+
+    type ReturnValue = ReturnType<typeof getValue>;
+    type Params = Parameters<typeof getValue>;
+
+    type MaybeStr = string | null | undefined;
+    type DefinitelyStr = NonNullable<MaybeStr>;
+
+    type PromiseString = Promise<string>;
+    type Result = Awaited<PromiseString>;
+
+    const func = async () => {
+      return {
+        id: 123,
+      }
+    }
+    type Res = Awaited<ReturnType<typeof func>>;
   }
 }
