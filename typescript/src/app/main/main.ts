@@ -117,5 +117,22 @@ export class Main {
       return price;
     }
 
+    //Interface vs Type
+    interface Point {
+      x: number;
+      y: number;
+    }
+    interface setPoint { (x: number, y: number): void; }
+
+    type PointType = {
+      x: number;
+      y: number;
+    };
+    type setPointType = (x: number, y: number) => void;
+    type Name = string;
+    type Union = string | number;
+    type Data = [number, string];
+
+    
   }
 }
