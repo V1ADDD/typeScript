@@ -82,5 +82,40 @@ export class Main {
       }
     }
     type Res = Awaited<ReturnType<typeof func>>;
+
+    //Type guards
+    type alphnum = string | number;
+    function add(a: alphnum, b: alphnum) {
+      if (typeof a === "number" && typeof b === "string") {
+        return a + b; // a - number, b - string
+      }
+      return 0;
+    }
+
+    class Banana {
+      isTasty(): boolean { return true;}
+    }
+    class Apple {
+      isJuicy(): boolean { return true;}
+    }
+    type Fruit = Banana | Apple;
+    function buyFruit(fruit: Fruit): number {
+      let price = 0;
+      if (fruit instanceof Banana) {
+        price = fruit.isTasty() ? 5 : 10;
+      }
+      return price;
+    }
+    function buyFruit2(fruit: Fruit): number {
+      let price = 0;
+      if ('isTasty' in fruit) {
+        price = fruit.isTasty() ? 5 : 10;
+      }
+      if ('isJuicy' in fruit) {
+        price = fruit.isJuicy() ? 5 : 10;
+      }
+      return price;
+    }
+
   }
 }
