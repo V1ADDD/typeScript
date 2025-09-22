@@ -133,6 +133,12 @@ export class Main {
     type Union = string | number;
     type Data = [number, string];
 
+    //Enum
+    enum Directions {
+      Up, Down, Right, Left
+    }
+    console.log(Directions.Up, Directions[0]) //0, 'Up'
     
+    // const enum
   }
 }
