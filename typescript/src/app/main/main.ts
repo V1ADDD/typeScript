@@ -43,10 +43,13 @@ export class Main {
     const perc = getValue(num);
 
     // Default types
-    function processData<T = string>(data: T): T {
-      return data;
+    type sometype<T = string> = {
+      name: string;
+      data: T;
     }
-    processData("Hello World"); //string
+    function exmpl(message: sometype) {
+      return message.data;
+    }
 
     //Utility types
     type User = {
