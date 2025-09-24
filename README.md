@@ -12,15 +12,15 @@ Complexity.
 let first: any = 123;  
 first = "First"; // can be of any type
 ### Unknown
-const parseData = (data: string): unknown => JSON.parse(data);  
+const parseData = (data: string): unknown =&gt; JSON.parse(data);  
 const jsonString = '{"name": "Vlad"}';  
 const parsed = parseData(jsonString); // unknown result of parsing for exmpl
 ### Never
-const thrErr = (message: string): never => { throw new Error(message) }; // result we never get, because of error or infinite loop
+const thrErr = (message: string): never =&gt; { throw new Error(message) }; // result we never get, because of error or infinite loop
 
 ## generics, narrowing Type, default values
 ### Generics
-function getFirst<T>(arr: T[]): T {  
+function getFirst&lt;T&gt;(arr: T[]): T {  
     return arr[0];  
 }  
 const str = getFirst(["str1","str2"]); // string  
@@ -35,7 +35,7 @@ function getValue(val: string | number): number{
     }  
 }
 ### default values
-type sometype<T = string> = {  
+type sometype&lt;T = string&gt; = {  
     name: string;  
     data: T;  
 }// we pass default value to type, so it gets what type we want to see if we dont pass anything particular  
@@ -49,27 +49,27 @@ type User = {
     name: string;  
     age?: number;  
 }  
-type PartialUser = Partial<User>; // {id?:...; name?:...; age?:...;}  
-type RequiredUser = Required<User>; // {id:...; name:...; age:...;}  
-type OmitUser = Omit<User, "id" | "age">; // {name:...;}  
-type PickUser = Pick<User, "id" | "name">; // {id:...; name:...;}  
-type ReadOnlyUser = Readonly<User>; // {readonly id:...; readonly name:...; readonly age?:...;}  
+type PartialUser = Partial&lt;User&gt;; // {id?:...; name?:...; age?:...;}  
+type RequiredUser = Required&lt;User&gt;; // {id:...; name:...; age:...;}  
+type OmitUser = Omit&lt;User, "id" | "age"&gt;; // {name:...;}  
+type PickUser = Pick&lt;User, "id" | "name"&gt;; // {id:...; name:...;}  
+type ReadOnlyUser = Readonly&lt;User&gt;; // {readonly id:...; readonly name:...; readonly age?:...;}  
   
 type Role =  
     { role: "admin"; id: string; }  
     | { role: "user" }  
     | { role: "guest" };  
-type NonAdminRole = Exclude<Role, { role: "admin" }>; // { role: user } | { role: guest }  
-type AdminRole = Extract<Role, { role: "admin"}>; // { role: "admin"; id: string; }  
+type NonAdminRole = Exclude&lt;Role, { role: "admin" }&gt;; // { role: user } | { role: guest }  
+type AdminRole = Extract&lt;Role, { role: "admin"}&gt;; // { role: "admin"; id: string; }  
   
-type ReturnValue = ReturnType<typeof getValue>; // number  
-type Params = Parameters<typeof getValue>; // string | number  
+type ReturnValue = ReturnType&lt;typeof getValue&gt;; // number  
+type Params = Parameters&lt;typeof getValue&gt;; // string | number  
   
 type MaybeStr = string | null | undefined;  
-type DefinitelyStr = NonNullable<MaybeStr>; // string  
+type DefinitelyStr = NonNullable&lt;MaybeStr&gt;; // string  
   
-type PromiseString = Promise<string>;  
-type Result = Awaited<PromiseString>; // string
+type PromiseString = Promise&lt;string&gt;;  
+type Result = Awaited&lt;PromiseString&gt;; // string
 
 ## type guards
 ### typeof
@@ -130,7 +130,7 @@ type PointType = {
     x: number;  
     y: number;  
 };  
-type setPointType = (x: number, y: number) => void;  
+type setPointType = (x: number, y: number) =&gt; void;  
 type Name = string;  
 type Union = string | number;  
 type Data = [number, string];  
