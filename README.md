@@ -44,5 +44,15 @@ class FruitFactory {
 const fruit = new FruitFactory();  
 const apple = fruit.create({type: 'Apple', wage: 0.5});  
 const banana = fruit.create({type: 'Banana', wage: 0.3})  
-
+## Singleton
+Ensures that only one object of its kind exists and provides a single point of access to it for any other code.  
+class Singleton {  
+&emsp;constructor () {  
+&emsp;&emsp;if (Singleton.instance) {  
+&emsp;&emsp;&emsp;return Singleton.instance  
+&emsp;&emsp;}  
+      
+&emsp;&emsp;Singleton.instance = this  
+&emsp;}  
+}  
 
