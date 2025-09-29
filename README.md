@@ -55,4 +55,25 @@ class Singleton {
 &emsp;&emsp;Singleton.instance = this  
 &emsp;}  
 }  
-
+## Decorator
+Allows adding new behaviors to objects dynamically by placing them inside special wrapper objects, called decorators.  
+class Marine {  
+&emsp;constructor(_damage, _armor) {  
+&emsp;&emsp;Object.assign(this, { _damage, _armor });  
+&emsp;}  
+&emsp;get damage() { return this._damage; }  
+&emsp;get armor() { return this._armor; }  
+}  
+class MarineWeaponUpgrade {  
+&emsp;constructor(marine) { this.marine = marine }  
+&emsp;get damage() { return this.marine.damage + 1 }  
+&emsp;get armor() { return this.marine.armor }  
+}  
+class MarineArmorUpgrade {  
+&emsp;constructor(marine) { this.marine = marine }  
+&emsp;get damage() { return this.marine.damage; }  
+&emsp;get armor() { return this.marine.armor + 1; }  
+}
+let marine = new Marine(15, 1);  
+marine = new MarineWeaponUpgrade(marine); // 16, 1
+marine = new MarineArmorUpgrade(marine); // 16, 2
