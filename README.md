@@ -76,4 +76,31 @@ class MarineArmorUpgrade {
 }
 let marine = new Marine(15, 1);  
 marine = new MarineWeaponUpgrade(marine); // 16, 1
-marine = new MarineArmorUpgrade(marine); // 16, 2
+marine = new MarineArmorUpgrade(marine); // 16, 2  
+## Facade
+Hiding complex logic behind simple interface.  
+class Facade {  
+&emsp;protected subsystem1: Subsystem1;  
+&emsp;constructor(subsystem1?: Subsystem1) {  
+&emsp;&emsp;this.subsystem1 = subsystem1 || new Subsystem1();  
+&emsp;}  
+&emsp;public operation(): string {  
+&emsp;&emsp;let result = this.subsystem1.operation1();  
+&emsp;&emsp;result += this.subsystem1.operationN();  
+&emsp;&emsp;return result;  
+&emsp;}  
+}  
+class Subsystem1 {  
+&emsp;public operation1(): string {  
+&emsp;&emsp;return 'Subsystem1: Ready!\n';  
+&emsp;}  
+&emsp;public operationN(): string {  
+&emsp;&emsp;return 'Subsystem1: Go!\n';  
+&emsp;}  
+}  
+function clientCode(facade: Facade) {  
+&emsp;console.log(facade.operation());  
+}  
+const subsystem1 = new Subsystem1();  
+const facade = new Facade(subsystem1);  
+clientCode(facade);  
