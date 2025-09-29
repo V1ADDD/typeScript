@@ -103,4 +103,33 @@ function clientCode(facade: Facade) {
 }  
 const subsystem1 = new Subsystem1();  
 const facade = new Facade(subsystem1);  
-clientCode(facade);  
+clientCode(facade); 
+## Strategy
+Turns a set of behaviors into objects and makes them interchangeable inside original context object.  
+class Planning {  
+&emsp;strategy: Strategy;  
+&emsp;constructor (strat: Strategy) {  
+&emsp;&emsp;this.strategy = strat;  
+&emsp;}  
+&emsp;doSomeBusinessLogic(): void {  
+&emsp;&emsp;const result = this.strategy.doAlgorithm(['a', 'b', 'c', 'd', 'e']);  
+&emsp;&emsp;console.log(result.join(','));  
+&emsp;}  
+}  
+interface Strategy {  
+&emsp;doAlgorithm(data: string[]): string[];  
+}  
+class StratA implements Strategy {  
+&emsp;public doAlgorithm(data: string[]): string[] {  
+&emsp;&emsp;return data.sort();  
+&emsp;}  
+}  
+class StratB implements Strategy {  
+&emsp;public doAlgorithm(data: string[]): string[] {  
+&emsp;&emsp;return data.reverse();  
+&emsp;}  
+}  
+const context = new Planning(new StratA());  
+context.doSomeBusinessLogic();  
+context.strategy = new StratB();  
+context.doSomeBusinessLogic();  
