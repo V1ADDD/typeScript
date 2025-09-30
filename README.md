@@ -133,3 +133,39 @@ const context = new Planning(new StratA());
 context.doSomeBusinessLogic();  
 context.strategy = new StratB();  
 context.doSomeBusinessLogic();  
+
+## Dependency Injection
+The main idea of this pattern is that you may have ability to pass dependencies into your function in any order and they will be resolved automatically.
+var DI = function (dependency) {  
+&emsp;this.dependency = dependency;  
+};  
+  
+DI.prototype.inject = function(func) {  
+&emsp;const deps = this.dependency;  
+&emsp;const FN_ARGS = /^function\s*[^ (]*\(\s*([^)]*)\)/m;  
+&emsp;const FN_ARG_SPLIT = /,/;  
+  
+&emsp;const fnText = func.toString();  
+  
+&emsp;const argNames = fnText  
+&emsp;&emsp;.match(FN_ARGS)[1]  
+&emsp;&emsp;.split(FN_ARG_SPLIT)  
+&emsp;&emsp;.map((arg) => arg.trim())  
+&emsp;&emsp;.filter((arg) => arg.length > 0);  
+  
+&emsp;const resolvedDependencies = argNames.map((argName) => deps[argName]);  
+  
+&emsp;return function() {  
+&emsp;&emsp;return func.apply(this, resolvedDependencies);  
+&emsp;};  
+};  
+var deps = {  
+&emsp;'dep1': function () {return 'this is dep1';},  
+&emsp;'dep2': function () {return 'this is dep2';},  
+&emsp;'dep3': function () {return 'this is dep3';},  
+&emsp;'dep4': function () {return 'this is dep4';}  
+};  
+var di = new DI(deps);  
+var myFunc = di.inject(function (dep3, dep1, dep2) {  
+&emsp;return [dep1(), dep2(), dep3()].join(' -> ');  
+});  
