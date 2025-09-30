@@ -169,3 +169,72 @@ var di = new DI(deps);
 var myFunc = di.inject(function (dep3, dep1, dep2) {  
 &emsp;return [dep1(), dep2(), dep3()].join(' -> ');  
 });  
+## Observer
+Provides a way to subscribe and unsubscribe to and from these events for any object that implements a subscriber interface.
+interface Subject {  
+&emsp;attach(observer: Observer): void;  
+&emsp;detach(observer: Observer): void;  
+&emsp;notify(): void;  
+}  
+  
+class ConcreteSubject implements Subject {  
+&emsp;public state: number;  
+&emsp;private observers: Observer[] = [];  
+  
+&emsp;public attach(observer: Observer): void {  
+&emsp;&emsp;const isExist = this.observers.includes(observer);  
+&emsp;&emsp;if (isExist) {  
+&emsp;&emsp;&emsp;return console.log('Subject: Observer has been attached already.');  
+&emsp;&emsp;}  
+  
+&emsp;&emsp;console.log('Subject: Attached an observer.');  
+&emsp;&emsp;this.observers.push(observer);  
+&emsp;}  
+  
+&emsp;public detach(observer: Observer): void {  
+&emsp;&emsp;const observerIndex = this.observers.indexOf(observer);  
+&emsp;&emsp;if (observerIndex === -1) {  
+&emsp;&emsp;&emsp;return console.log('Subject: Nonexistent observer.');  
+&emsp;&emsp;}  
+  
+&emsp;&emsp;this.observers.splice(observerIndex, 1);  
+&emsp;&emsp;console.log('Subject: Detached an observer.');  
+&emsp;}  
+  
+&emsp;public notify(): void {  
+&emsp;&emsp;console.log('Subject: Notifying observers...');  
+&emsp;&emsp;for (const observer of this.observers) {  
+&emsp;&emsp;&emsp;observer.update(this);  
+&emsp;&emsp;}  
+&emsp;}  
+  
+&emsp;public someBusinessLogic(): void {  
+&emsp;&emsp;console.log('\nSubject: I\'m doing something important.');  
+&emsp;&emsp;this.state = Math.floor(Math.random() * (10 + 1));  
+  
+&emsp;&emsp;console.log(`Subject: My state has just changed to: ${this.state}`);  
+&emsp;&emsp;this.notify();  
+&emsp;}  
+}  
+  
+interface Observer {  
+&emsp;update(subject: Subject): void;  
+}  
+  
+class ConcreteObserverA implements Observer {  
+&emsp;public update(subject: Subject): void {  
+&emsp;&emsp;if (subject instanceof ConcreteSubject && subject.state < 3) {  
+&emsp;&emsp;&emsp;console.log('ConcreteObserverA: Reacted to the event.');  
+&emsp;&emsp;}  
+&emsp;}  
+}  
+  
+const subject = new ConcreteSubject();  
+  
+const observer1 = new ConcreteObserverA();  
+subject.attach(observer1);  
+  
+subject.someBusinessLogic();  
+subject.someBusinessLogic();  
+  
+subject.detach(observer1);
