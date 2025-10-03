@@ -1,4 +1,4 @@
-import { Component, model, ModelSignal } from '@angular/core';
+import { Component, signal } from '@angular/core';
 import { Hero } from '../hero';
 import { HEROES } from '../mock-heroes';
 
@@ -9,9 +9,9 @@ import { HEROES } from '../mock-heroes';
   styleUrl: './heroes.scss'
 })
 export class Heroes {
-  heroes: ModelSignal<Hero[]> = model(HEROES);
-  selectedHero?: Hero;
+  heroes: Hero[] = HEROES;
+  selectedHero = signal<Hero | undefined>(undefined);
   onSelect(hero: Hero): void {
-    this.selectedHero = hero;
+    this.selectedHero?.set(hero);
   }
 }
