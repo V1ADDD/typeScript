@@ -7,5 +7,5 @@ import { Component, signal } from '@angular/core';
   styleUrl: './app.scss'
 })
 export class App {
-  protected readonly title = signal('angular-tour-of-heroes');
+  protected readonly title = signal('Tour of Heroes');
 }
