@@ -1,5 +1,6 @@
-import { Component, model, ModelSignal, WritableSignal } from '@angular/core';
+import { Component, model, ModelSignal } from '@angular/core';
 import { Hero } from '../hero';
+import { HEROES } from '../mock-heroes';
 
 @Component({
   selector: 'app-heroes',
@@ -8,8 +9,9 @@ import { Hero } from '../hero';
   styleUrl: './heroes.scss'
 })
 export class Heroes {
-  hero: ModelSignal<Hero> = model({
-    id: 1,
-    name: 'Windstorm'
-  });
+  heroes: ModelSignal<Hero[]> = model(HEROES);
+  selectedHero?: Hero;
+  onSelect(hero: Hero): void {
+    this.selectedHero = hero;
+  }
 }
