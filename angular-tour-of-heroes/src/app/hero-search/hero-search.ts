@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 
 import { Observable, Subject } from 'rxjs';
 
@@ -13,7 +13,8 @@ import { HeroService } from '../hero-service';
   selector: 'app-hero-search',
   standalone: false,
   templateUrl: './hero-search.html',
-  styleUrl: './hero-search.scss'
+  styleUrl: './hero-search.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HeroSearch implements OnInit {
   heroes$!: Observable<Hero[]>;

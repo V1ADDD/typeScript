@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { Hero } from '../hero';
 import { HeroService } from '../hero-service';
 
@@ -6,14 +6,19 @@ import { HeroService } from '../hero-service';
   selector: 'app-heroes',
   standalone: false,
   templateUrl: './heroes.html',
-  styleUrl: './heroes.scss'
+  styleUrl: './heroes.scss',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class Heroes {
-  constructor (private heroService: HeroService) {}
+  constructor (private heroService: HeroService, private cdr: ChangeDetectorRef) {}
   heroes: Hero[] = [];
   getHeroes(): void {
     this.heroService.getHeroes()
-      .subscribe(heroes => this.heroes = heroes);
+      .subscribe({
+        next: heroes => this.heroes = heroes,
+        error: (err) => console.log(err),
+        complete: () => this.cdr.markForCheck()
+      });
   }
   ngOnInit(): void {
     this.getHeroes();
@@ -22,8 +27,10 @@ export class Heroes {
     name = name.trim();
     if (!name) { return; }
     this.heroService.addHero({ name } as Hero)
-      .subscribe(hero => {
-        this.heroes.push(hero);
+      .subscribe({
+        next: hero => this.heroes.push(hero),
+        error: (err) => console.log(err),
+        complete: () => this.cdr.markForCheck()
       });
   }
   delete(hero: Hero): void {
