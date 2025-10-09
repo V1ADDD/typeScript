@@ -3,11 +3,18 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "typescript": {
+    "angular-tour-of-heroes": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
-          "style": "scss"
+          "style": "scss",
+          "standalone": false
+        },
+        "@schematics/angular:directive": {
+          "standalone": false
+        },
+        "@schematics/angular:pipe": {
+          "standalone": false
         }
       },
       "root": "",
@@ -61,10 +68,10 @@
           "builder": "@angular/build:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "typescript:build:production"
+              "buildTarget": "angular-tour-of-heroes:build:production"
             },
             "development": {
-              "buildTarget": "typescript:build:development"
+              "buildTarget": "angular-tour-of-heroes:build:development"
             }
           },
           "defaultConfiguration": "development"

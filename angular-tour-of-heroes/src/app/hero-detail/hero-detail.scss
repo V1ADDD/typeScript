@@ -1,0 +1,29 @@
+$color_1: #435960;
+$color_2: #ccc;
+$background-color_1: #eee;
+$background-color_2: #cfd8dc;
+
+label {
+	color: $color_1;
+	font-weight: bold;
+}
+input {
+	font-size: 1em;
+	padding: .5rem;
+}
+button {
+	margin-top: 20px;
+	margin-right: .5rem;
+	background-color: $background-color_1;
+	padding: 1rem;
+	border-radius: 4px;
+	font-size: 1rem;
+	&:hover {
+		background-color: $background-color_2;
+	}
+	&:disabled {
+		background-color: $background-color_1;
+		color: $color_2;
+		cursor: auto;
+	}
+}
